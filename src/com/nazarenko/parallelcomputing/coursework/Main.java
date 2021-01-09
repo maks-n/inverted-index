@@ -14,11 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
         final int threadsAmount;
+        Scanner scanner = new Scanner(System.in);
         HashMap<String, HashSet<File>> finalIndexSet = new HashMap<>();
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Write amount of threads:\n-> ");
-        threadsAmount = scanner.nextInt();
+        threadsAmount = setThreadsAmount(scanner);
+
         InvertedIndex[] invertedIndexThreads = new InvertedIndex[threadsAmount];
 
         long startTime = System.currentTimeMillis();
@@ -57,12 +57,40 @@ public class Main {
         long totalSeconds = totalTime / 1000 - totalMinutes * 60;
         long totalMilliseconds = totalTime - totalSeconds * 1000 - totalMinutes * 1000 * 60;
 
-        String info = "Inverted index has been build in [" +
+        String info = getExecutionInfo(totalMinutes, totalSeconds, totalMilliseconds);
+        System.out.println(info);
+        writeIndexToFile(finalIndexSet, info);
+        searchWord(finalIndexSet, scanner);
+
+    }
+
+    private static int setThreadsAmount(Scanner scanner) {
+        int threadsAmount;
+        do {
+            System.out.print("Write amount of threads:\n-> ");
+            threadsAmount = scanner.nextInt();
+        } while (!(threadsAmount > 0));
+        return threadsAmount;
+    }
+
+    private static String getExecutionInfo(long totalMinutes, long totalSeconds, long totalMilliseconds) {
+        return "Inverted index has been build in [" +
                 totalMinutes + " m " +
                 totalSeconds + " s " +
                 totalMilliseconds + " ms]";
-        System.out.println(info);
+    }
 
+    private static boolean searchWord(HashMap<String, HashSet<File>> finalIndexSet, Scanner scanner) {
+        System.out.print("Write word to search:\n-> ");
+        if (scanner.hasNext()) {
+            String searchWord = scanner.next();
+            System.out.println(finalIndexSet.get(searchWord));
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean writeIndexToFile(HashMap<String, HashSet<File>> finalIndexSet, String info) {
         try (FileWriter outputWriter = new FileWriter("inverted-index.txt")) {
             outputWriter.write(info + "\n\n");
             for (Map.Entry<String, HashSet<File>> wordDoc : finalIndexSet.entrySet()) {
@@ -76,16 +104,11 @@ public class Main {
                 }
                 outputWriter.write("\n");
             }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
-
-        System.out.print("Write word to search:\n-> ");
-        if (scanner.hasNext()) {
-            String searchWord = scanner.next();
-            System.out.println(finalIndexSet.get(searchWord));
-        }
-
     }
 
 }
