@@ -1,6 +1,8 @@
 package com.nazarenko.parallelcomputing.coursework;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
@@ -39,6 +41,22 @@ public class Main {
                                 return existedFiles;
                             })
                     );
+        }
+
+        try (FileWriter outputWriter = new FileWriter("inverted-index.txt")) {
+            for (Map.Entry<String, HashSet<File>> wordDoc : finalIndexSet.entrySet()) {
+                String word = wordDoc.getKey();
+                HashSet<File> docWordCount = wordDoc.getValue();
+                outputWriter.write("[" + word + "] appears " + docWordCount.size() + " times in:\n");
+
+                for (File docFrequency : docWordCount) {
+                    String document = docFrequency.toString();
+                    outputWriter.write("\t" + document + "\n");
+                }
+                outputWriter.write("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
