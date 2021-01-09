@@ -7,22 +7,18 @@ import java.util.Objects;
 
 
 public class Data {
-    List<File> fileList = new ArrayList<>();
+    List<File> filesList = new ArrayList<>();
 
-    File[] pathsToFiles = {
-            new File("data/neg"),
-            new File("data/neg-test"),
-            new File("data/pos"),
-            new File("data/pos-test"),
-            new File("data/unsup")
+    File[] pathsToData = {
+            new File("data/")
     };
 
     public List<File> returnFiles() {
-        for (File folder : pathsToFiles) {
+        for (File folder : pathsToData) {
             for (File file : Objects.requireNonNull(folder.listFiles())) {
-                fileList.add(file.getAbsoluteFile());
+                filesList.add(file.getAbsoluteFile());
             }
         }
-        return fileList;
+        return filesList;
     }
 }
