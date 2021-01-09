@@ -10,7 +10,7 @@ public class Data {
     List<File> filesList = new ArrayList<>();
 
     File[] pathsToData = {
-            new File("data/")
+            new File("data/neg")
     };
 
     public List<File> returnFiles() {
