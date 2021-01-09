@@ -62,6 +62,7 @@ public class Main {
         System.out.println(info);
 
         try (FileWriter outputWriter = new FileWriter("inverted-index.txt")) {
+            outputWriter.write(info + "\n\n");
             for (Map.Entry<String, HashSet<File>> wordDoc : finalIndexSet.entrySet()) {
                 String word = wordDoc.getKey();
                 HashSet<File> docWordCount = wordDoc.getValue();
