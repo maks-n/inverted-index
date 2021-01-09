@@ -17,7 +17,7 @@ public class Main {
         HashMap<String, HashSet<File>> finalIndexSet = new HashMap<>();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Write amount of threads:");
+        System.out.print("Write amount of threads:\n-> ");
         threadsAmount = scanner.nextInt();
         InvertedIndex[] invertedIndexThreads = new InvertedIndex[threadsAmount];
 
@@ -28,11 +28,13 @@ public class Main {
                     i == (threadsAmount - 1) ? FILES.size() : FILES.size() / threadsAmount * (i + 1));
             invertedIndexThreads[i] = new InvertedIndex(partOfFiles);
             invertedIndexThreads[i].start();
+            System.out.println(invertedIndexThreads[i].getName() + " starts execution");
         }
 
         for (int i = 0; i < threadsAmount; i++) {
             try {
                 invertedIndexThreads[i].join();
+                System.out.println(invertedIndexThreads[i].getName() + " ends execution");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -76,6 +78,12 @@ public class Main {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        System.out.print("Write word to search:\n-> ");
+        if (scanner.hasNext()) {
+            String searchWord = scanner.next();
+            System.out.println(finalIndexSet.get(searchWord));
         }
 
     }
