@@ -17,6 +17,8 @@ public class Main {
         threadsAmount = scanner.nextInt();
         InvertedIndex[] invertedIndexThreads = new InvertedIndex[threadsAmount];
 
+        long startTime = System.currentTimeMillis();
+
         for (int i = 0; i < threadsAmount; i++) {
             List<File> partOfFiles = FILES.subList(FILES.size() / threadsAmount * i,
                     i == (threadsAmount - 1) ? FILES.size() : FILES.size() / threadsAmount * (i + 1));
@@ -42,6 +44,18 @@ public class Main {
                             })
                     );
         }
+
+        long finishTime = System.currentTimeMillis();
+        long totalTime = finishTime - startTime;
+        long totalMinutes = totalTime / 1000 / 60;
+        long totalSeconds = totalTime / 1000 - totalMinutes * 60;
+        long totalMilliseconds = totalTime - totalSeconds * 1000 - totalMinutes * 1000 * 60;
+
+        String info = "Inverted index has been build in [" +
+                totalMinutes + " m " +
+                totalSeconds + " s " +
+                totalMilliseconds + " ms]";
+        System.out.println(info);
 
         try (FileWriter outputWriter = new FileWriter("inverted-index.txt")) {
             for (Map.Entry<String, HashSet<File>> wordDoc : finalIndexSet.entrySet()) {
