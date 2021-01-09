@@ -1,9 +1,13 @@
 package com.nazarenko.parallelcomputing.coursework;
 
+import java.util.List;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
 
 public class Main {
     private static final List<File> FILES = new Data().returnFiles();

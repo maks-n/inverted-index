@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-
 public class InvertedIndex extends Thread {
     public List<File> filesList;
     public Map<String, HashSet<File>> index = new HashMap<>();

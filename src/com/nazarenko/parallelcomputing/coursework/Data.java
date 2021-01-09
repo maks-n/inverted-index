@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
 public class Data {
     List<File> filesList = new ArrayList<>();
 
