@@ -1,7 +1,6 @@
 package com.nazarenko.parallelcomputing.coursework;
 
 import java.util.List;
-import java.util.Set;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,15 +12,15 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-public class InvertedIndex implements Runnable {
+public class InvertedIndex extends Thread {
     public List<File> filesList;
-    public Map<String, Set<File>> index = new HashMap<>();
+    public Map<String, HashSet<File>> index = new HashMap<>();
 
     public InvertedIndex(List<File> files) {
         this.filesList = files;
     }
 
-    public Map<String, Set<File>> getIndex() {
+    public Map<String, HashSet<File>> getIndex() {
         return this.index;
     }
 
