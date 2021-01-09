@@ -9,8 +9,12 @@ public class Data {
     List<File> filesList = new ArrayList<>();
 
     File[] pathsToData = {
-            new File("data/neg")
-    };
+            new File("data/1"),
+            new File("data/2"),
+            new File("data/3"),
+            new File("data/4"),
+            new File("data/5"),
+            };
 
     public List<File> returnFiles() {
         for (File folder : pathsToData) {
