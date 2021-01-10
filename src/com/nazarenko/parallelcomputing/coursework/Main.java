@@ -40,6 +40,8 @@ public class Main {
             }
         }
 
+        long threadsTime = System.currentTimeMillis();
+
         for (int i = 0; i < threadsAmount; i++) {
             invertedIndexThreads[i].getIndex()
                     .forEach((key, value) -> finalIndexSet
@@ -52,12 +54,17 @@ public class Main {
         }
 
         long finishTime = System.currentTimeMillis();
+
+        long totalThreadsTime = threadsTime - startTime;
         long totalTime = finishTime - startTime;
         long totalMinutes = totalTime / 1000 / 60;
         long totalSeconds = totalTime / 1000 - totalMinutes * 60;
         long totalMilliseconds = totalTime - totalSeconds * 1000 - totalMinutes * 1000 * 60;
 
         String info = getExecutionInfo(totalMinutes, totalSeconds, totalMilliseconds);
+        System.out.println("Working time: " +
+                "threads = " + totalThreadsTime + " ms, " +
+                "program = " + totalTime + " ms");
         System.out.println(info);
         writeIndexToFile(finalIndexSet, info);
         searchWord(finalIndexSet, scanner);
