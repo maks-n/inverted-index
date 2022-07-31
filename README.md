@@ -13,7 +13,7 @@ Program to build [**inverted index**](https://en.wikipedia.org/wiki/Inverted_ind
 ## Usage
 * Clone repository on local machine
 ```bash
-git clone https://github.com/MaksNazarenko/inverted-index
+git clone git@github.com:maks-n/inverted-index.git
 ```
 * In `Data.java` file add pathname to your .txt datafiles 
 * Build and run project using IDE
